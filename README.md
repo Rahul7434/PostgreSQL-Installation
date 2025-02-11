@@ -1,4 +1,4 @@
-# PostgreSQL-Installation on RHEL
+# PostgreSQL-Installation on RHEL using online & using source code
 
 ### PostgreSQL can be installed easily on RHEL using the official PostgreSQL Yum Repository. Follow the steps below to set up a PostgreSQL server on your RHEL system.
  
@@ -75,5 +75,123 @@ Check the installed PostgreSQL version:
 SELECT version();
 
 ```
+---
+## PostgreSQL Installation Guide for RHEL Using Source Code
+ 
+### Installing PostgreSQL from source allows for custom configurations and optimization for your specific environment. Follow these steps to compile and install PostgreSQL from source on RHEL.
+```
+ why source code:- 
+✅ Custom Configurations: Modify compile options for performance tuning.
+✅ Latest Features: Access the newest PostgreSQL versions before they hit repositories.
+✅ Full Control: Choose your own installation paths and settings.
+```
+ 
+---
+ 
+- Step 1: Install Required Dependencies
+```
+ 
+Before compiling PostgreSQL, install the necessary development tools and libraries:
+ 
+sudo yum groupinstall -y "Development Tools"
+sudo yum install -y gcc readline-devel zlib-devel
+```
+ 
+ 
+---
+ 
+- Step 2: Download the PostgreSQL Source Code
+```
+Visit the PostgreSQL official website and choose the latest stable version. Then, download it using wget:
+ 
+wget https://ftp.postgresql.org/pub/source/v16.4/postgresql-16.4.tar.gz
+```
+ 
+---
+ 
+- Step 3: Extract the Source Code
+```
+Extract the downloaded archive and navigate into the source directory:
+ 
+tar -xvzf postgresql-16.4.tar.gz
+cd postgresql-16.4
+```
+ 
+---
+ 
+- Step 4: Configure the Build Options
+``` 
+Run the configure script to prepare for compilation. The --prefix option specifies where PostgreSQL will be installed:
+ 
+./configure --prefix=/usr/local/pgsql
+ 
+```
+---
+ 
+- Step 5: Compile and Install PostgreSQL
+```
+Start the compilation process:
+ 
+make
+ 
+Once completed, install PostgreSQL:
+ 
+sudo make install
+```
+ 
+---
+ 
+- Step 6: Create PostgreSQL User and Directories
+``` 
+For security, create a dedicated PostgreSQL user and set up the data directory:
+ 
+sudo useradd -m postgres
+sudo mkdir -p /usr/local/pgsql/data
+sudo chown -R postgres:postgres /usr/local/pgsql
+```
+ 
+---
+ 
+- Step 7: Initialize the PostgreSQL Database
+```
+Switch to the postgres user and initialize the database cluster:
+ 
+sudo -i -u postgres /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+```
+ 
+---
+ 
+- Step 8: Start the PostgreSQL Server
+```
+Start the PostgreSQL server manually using pg_ctl:
+ 
+sudo -i -u postgres /usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/data start
+```
+ 
+---
+ 
+- Step 9: Enable PostgreSQL to Start on Boot (Optional)
+``` 
+To make PostgreSQL start automatically on system boot, create a systemd service:
+ 
+sudo cp contrib/start-scripts/linux /etc/init.d/postgresql
+sudo chmod +x /etc/init.d/postgresql
+sudo systemctl enable postgresql
+``` 
+ 
+---
+ 
+- Step 10: Connect to PostgreSQL
+``` 
+Switch to the postgres user and open the PostgreSQL shell:
+ 
+sudo -i -u postgres /usr/local/pgsql/bin/psql
+ 
+Verify the installation:
+ 
+SELECT version();
+``` 
+ 
+---
  
 
