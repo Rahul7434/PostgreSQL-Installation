@@ -24,9 +24,9 @@
  
 PostgreSQL is not included in the default RHEL repositories. You must install the PostgreSQL Yum repository before proceeding.
  
-1️⃣ Select the PostgreSQL Version: Choose the version you want (e.g., PostgreSQL 16).
-2️⃣ Select Your Platform: Choose RHEL 8 or 9 depending on your system.
-3️⃣ Select the Architecture: Ensure you select x86_64 (64-bit).
+- 1️⃣ Select the PostgreSQL Version: Choose the version you want (e.g., PostgreSQL 16).
+- 2️⃣ Select Your Platform: Choose RHEL 8 or 9 depending on your system.
+- 3️⃣ Select the Architecture: Ensure you select x86_64 (64-bit).
 ```
 Now, install the repository using the following command:
  
